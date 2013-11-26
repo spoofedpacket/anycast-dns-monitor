@@ -1,0 +1,80 @@
+#!/bin/sh
+
+#
+# anycast-dns-monitor - init script for debian-like systems
+#
+
+### BEGIN INIT INFO
+# Provides:          anycast-dns-monitor
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+NAME=anycast-dns-monitor
+DESC="Anycast DNS monitor"
+DAEMON=/usr/sbin/anycast-dns-monitor.py
+
+test -x $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+ADM_ENABLE=true
+ADM_PID="/var/run/anycast-dns-monitor.pid"
+ADM_CFG="/etc/anycast-dns-monitor.cfg"
+
+if [ -f /etc/default/$NAME ]; then
+    . /etc/default/$NAME
+    case "x$ADM_ENABLE" in
+        xtrue|x1|xyes)
+            ADM_ENABLE=true
+            ;;
+        *)
+            ADM_ENABLE=false
+            ;;
+    esac
+fi
+
+case "$1" in
+    start)
+        if $ADM_ENABLE; then
+           log_daemon_msg "Starting $DESC" "$NAME"
+           if start-stop-daemon --start --quiet --oknodo --pidfile $ADM_PID --exec $DAEMON -- -p $ADM_PID -c $ADM_CFG; then
+              log_end_msg 0
+           else
+              log_end_msg 1
+           fi
+        else
+           log_warning_msg "Not starting $DESC $NAME, disabled via /etc/default/$NAME"
+        fi
+    ;;
+    stop)
+        if $ADM_ENABLE; then
+           log_daemon_msg "Stopping $DESC" "$NAME"
+           if start-stop-daemon --stop --quiet --oknodo --pidfile $ADM_PID; then
+              log_end_msg 0
+           else
+              log_end_msg 1
+           fi
+        fi
+    ;;
+    restart|reload)
+        if $ADM_ENABLE; then
+           log_daemon_msg "Restarting $DESC" "$NAME"
+           start-stop-daemon --stop --quiet --pidfile $ADM_PID --retry 5
+           if start-stop-daemon --start --quiet --oknodo --pidfile $ADM_PID --exec $DAEMON -- -p $ADM_PID -c $ADM_CFG; then
+              log_end_msg 0
+           else
+              log_end_msg 1
+           fi
+        fi
+    ;;
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart}" >&2
+        exit 1
+    ;;
+esac
+
+exit 0;

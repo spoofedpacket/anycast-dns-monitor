@@ -1,0 +1,13 @@
+Package: anycast-dns-monitor
+Version: 1.0-2
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python-argparse, python-daemon, python-ipy, python-lockfile, python-dnspython
+Maintainer: Robert Gallagher <rob@spoofedpacket.net>
+Description: Anycast DNS monitor
+ anycast-dns-monitor checks nameserver health by sending test queries to nominated 
+ unicast addresses. The daemon can automatically bring down anycast loopback interfaces 
+ if errors are encountered. This effectively removes a machine from an anycast pool as 
+ BGP will automatically withdraw all routes.
+

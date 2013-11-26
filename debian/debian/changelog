@@ -1,0 +1,14 @@
+anycast-dns-monitor (1.0-2) unstable; urgency=low
+
+ * Log failed queries and DNSException type thrown by dnspython. 
+ * Log configuration file location on startup.
+ * General formatting and comment tidy.
+ * More appropriate use of log.info and log.error.
+
+ -- Robert Gallagher <rob@spoofedpacket.net>  Wed, 21 Mar 2012 11:25:55 +0000
+
+anycast-dns-monitor (1.0-1) unstable; urgency=low
+
+ * Initial release.
+
+ -- Robert Gallagher <rob@spoofedpacket.net>  Wed, 08 Feb 2012 16:28:22 +0000

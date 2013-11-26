@@ -1,0 +1,6 @@
+#
+# anycast-dns-monitor - defaults for debian-like systems
+#
+ADM_ENABLE=true
+ADM_PID="/var/run/anycast-dns-monitor.pid"
+ADM_CFG="/etc/anycast-dns-monitor.cfg"

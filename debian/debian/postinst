@@ -1,0 +1,2 @@
+#!/bin/sh
+update-rc.d anycast-dns-monitor defaults
