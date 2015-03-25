@@ -135,7 +135,7 @@ if __name__ == "__main__":
       CFG = "/usr/local/etc/anycast-dns-monitor.cfg"
 
    # Grab lock and open pid file
-   pidlock = daemon.pidlockfile.TimeoutPIDLockFile(PID, 10) 
+   pidlock = lockfile.pidlockfile.TimeoutPIDLockFile(PID, 10) 
 
    # Start as a daemon - this is something akin to a chroot.
    with daemon.DaemonContext(pidfile=pidlock):
