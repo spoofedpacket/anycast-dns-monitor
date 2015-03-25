@@ -32,7 +32,7 @@ import time
 import argparse
 import ConfigParser
 import daemon
-import daemon.pidlockfile
+import lockfile.pidlockfile
 import dns.resolver
 import IPy
 
