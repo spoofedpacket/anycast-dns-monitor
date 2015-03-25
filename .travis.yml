@@ -6,4 +6,4 @@ python:
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt --use-mirrors
 # command to run tests, e.g. python setup.py test
-#script:  PLEASE CHANGE ME
+script: python ./anycast-dns-monitor.py -p ./anycast-dns-monitor.pid -c ./anycast-dns-monitor.cfg
